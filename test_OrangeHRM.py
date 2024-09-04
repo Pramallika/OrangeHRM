@@ -28,9 +28,17 @@ class test_orangeHRM(unittest.TestCase):
             expected_url = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
             self.assertEqual(current_url,expected_url)
         except:
-            expected_error_message = "Invalid credentials"
-            error_message = self.driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/p').text
-            self.assertEqual(error_message,expected_error_message)
+            self.test_invalid_cred()
+
+    def test_invalid_cred(self):
+        self.login_Page.enter_username("Admn")
+        self.login_Page.enter_password("admin123")
+        self.login_Page.click_submit()
+        time.sleep(2)
+
+        expected_error_message = "Invalid credentials"
+        error_message = self.driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/p').text
+        self.assertEqual(error_message,expected_error_message)
         
             
         
